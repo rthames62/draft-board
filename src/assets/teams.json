@@ -1,0 +1,76 @@
+{
+    "teams" : [
+        {
+            "owner": "Ryan Thames",
+            "team_name": "A Win Is Coming",
+            "draft_position": 0,
+            "image_path": ""
+        },
+        {
+            "owner": "Jeremy Stalford",
+            "team_name": "Team 2",
+            "draft_position": 0,
+            "image_path": ""
+        },
+        {
+            "owner": "Chad Cutting",
+            "team_name": "Team 3",
+            "draft_position": 0,
+            "image_path": ""
+        },
+        {
+            "owner": "Connor Myers",
+            "team_name": "Team 4",
+            "draft_position": 0,
+            "image_path": ""
+        },
+        {
+            "owner": "Patrick Tabler",
+            "team_name": "Team 5",
+            "draft_position": 0,
+            "image_path": ""
+        },
+        {
+            "owner": "Lucas Benavides",
+            "team_name": "Team 6",
+            "draft_position": 0,
+            "image_path": ""
+        },
+        {
+            "owner": "Terin Guerra",
+            "team_name": "Team 7",
+            "draft_position": 0,
+            "image_path": ""
+        },
+        {
+            "owner": "Tim Bobbitt",
+            "team_name": "Team 8",
+            "draft_position": 0,
+            "image_path": ""
+        },
+        {
+            "owner": "Carter Willis",
+            "team_name": "Team 9",
+            "draft_position": 0,
+            "image_path": ""
+        },
+        {
+            "owner": "Austin High",
+            "team_name": "Team 10",
+            "draft_position": 0,
+            "image_path": ""
+        },
+        {
+            "owner": "Matt Towson",
+            "team_name": "Team 11",
+            "draft_position": 0,
+            "image_path": ""
+        },
+        {
+            "owner": "Will Gibson",
+            "team_name": "Team 12",
+            "draft_position": 0,
+            "image_path": ""
+        }
+    ]
+}
