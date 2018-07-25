@@ -1,0 +1,19 @@
+div.timer-wrapper {
+    width: 100%;
+    height: 20vh;
+    background: black;
+    color: rgb(119, 255, 137);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+div.timer-wrapper h3 {
+    margin: 0;
+}
+
+div.timer {
+    font-size: 80px;
+}

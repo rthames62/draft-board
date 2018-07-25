@@ -6,23 +6,32 @@
       <span>{{ team.team_name }}</span>
     </div>
   </div>
-  <div class="round-row" *ngFor="let x of draftRounds; let i of index;">
+  <div class="round-row" *ngFor="let round of draftResults; let i = index;">
     <div class="round-header">
-      Round {{ x }}
+      Round {{ i + 1 }}
     </div>
-    <div class="pick" (click)="showPlayerSearch()">
-      {{ selectedPlayer.displayName }}
+    <div class="pick" *ngFor="let pick of round" (click)="currentPick = pick; showPlayerSearch();">
+      {{ pick.pick.displayName }}
     </div>
   </div>
 </section>
 
-<div class="player-search" [ngClass]="playerSearchModal">
+<section class="draft-details-wrapper">
+  <app-timer></app-timer>
+
+  <h3>On The Clock</h3>
+  <div *ngFor="let team of upcomingPicks | slice:0:3; let i = index">
+    {{ team.team_name }}
+  </div>
+</section>
+
+<div class="player-search" [ngClass]="playerSearchModal" (click)="closePlayerSearch($event)">
     <div class="search-wrapper">
         <input (keyup)="searchPlayers($event)" [(ngModel)]="searchInput" type="text" placeholder="search">
 
         <ul class="player-list">
           <li *ngFor="let player of searchedPlayers">
-            <span class="assign-player" (click)="assignPick(currentTeamPicking, player)">{{ player.displayName }} - {{ player.position }} - {{ player.team }}</span>
+            <span class="assign-player" (click)="assignPick(currentPick, player)">{{ player.displayName }} - {{ player.position }} - {{ player.team }}</span>
           </li>
         </ul>
     </div>

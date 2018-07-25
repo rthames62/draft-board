@@ -19,10 +19,10 @@ export class BoardComponent implements OnInit {
   };
 
   draftRounds: Array<Number> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-  currentPick: Number;
-  currentTeamPicking: Number = 1;
-
+  currentPick;
+  draftResults;
   playerSearchModal: String;
+  upcomingPicks = [];
 
   constructor(
     private playersService: PlayersService,
@@ -33,7 +33,8 @@ export class BoardComponent implements OnInit {
   ngOnInit() {
     this.teamsService.getTeams().subscribe(data => {
       this.leagueTeams = data.teams;
-      console.log(this.leagueTeams);
+      this.draftResults = this.draftService.buildDraftResults(data.teams);
+      this.upcomingPicks = data.teams;
     });
   }
 
@@ -44,9 +45,10 @@ export class BoardComponent implements OnInit {
   }
 
   assignPick(team, player) {
-    this.draftService.assignPick(team, player);
-    this.selectedPlayer = player;
+    this.draftResults = this.draftService.assignPick(team, player);
     this.playerSearchModal = "";
+    this.searchInput = "";
+    this.searchedPlayers = [];
   }
 
   getPlayerSearchModal(str){
@@ -55,5 +57,11 @@ export class BoardComponent implements OnInit {
 
   showPlayerSearch(){
     this.playerSearchModal = 'active';
+  }
+
+  closePlayerSearch(e){
+    if(e.target.className === 'player-search active'){
+      this.playerSearchModal = '';
+    }
   }
 }

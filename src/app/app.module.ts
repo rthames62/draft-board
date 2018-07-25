@@ -9,12 +9,14 @@ import { PlayersService} from './players.service';
 import { TeamsService} from './teams.service';
 import { DraftService } from './draft.service';
 import { PickSelectorComponent } from './pick-selector/pick-selector.component';
+import { TimerComponent } from './timer/timer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
-    PickSelectorComponent
+    PickSelectorComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule, HttpModule, FormsModule
