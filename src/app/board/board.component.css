@@ -1,22 +1,81 @@
 section.draft-board-wrapper {
     display: flex;
     flex-direction: column;
-    width: 85%;
+    width: 90%;
     height: 100%;
 }
 
 section.draft-details-wrapper {
     display: flex;
     flex-direction: column;
-    width: 15%;
-    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+    width: 10%;
+    height: 100vh;
+    background-color: rgb(26, 26, 26);
+    color: white;
+}
+
+div.upcoming-picks {
+    width: 100%;
+}
+
+div.draft-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.draft-details h3 {
+    font-size: 26px;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    margin-bottom: 0;
+    padding-bottom: 5px;
+}
+
+div.team-drafting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 36px;
+    padding: 20px;
+    text-align: center;
+}
+
+div.team-drafting:nth-child(1) {
+    background-color: #3d3d3d;
+}
+
+div.team-drafting:nth-child(2) {
+    font-size: 18px;
+}
+
+div.team-drafting:nth-child(3) {
+    font-size: 18px;
+}
+
+div.team-drafting img {
+    border-radius: 50%;
+    border: 3px solid white;
+    width: 120px;
+    margin-bottom: 10px;
+    display: none;
+}
+
+div.team-drafting:first-child img {
+    display: block;
 }
 
 div.teams-row {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin-left: 98px;
+}
+
+.corner {
+    width: 115px;
 }
 
 div.team {
@@ -25,23 +84,35 @@ div.team {
     align-items: center;
     justify-content: center;
     width: 7.7vw;
-    height: 8.5vh;
     border: 1px solid #3d3d3d;
     border-right: none;
     border-bottom: none;
-    padding: 5px 10px;
+    padding: 15px 10px;
     flex: 1 1 auto;
+    font-size: 20px;
+    font-weight: 600;
 }
 
 div.team:nth-last-child(1) {
     border-right: 1px solid #3d3d3d;
 }
 
+div.team img {
+    width: 50px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    border: 1px solid black;
+}
+
 div.round-row {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    height: 6.4vh;
+    height: 5.72vh;
+}
+
+div.round-row:nth-child(odd) {
+    background-color: #f2f2f2;
 }
 
 div.round-row:last-child {
@@ -115,8 +186,99 @@ div.pick {
     border-right: none;
     border-bottom: none;
     flex: 1 1 auto;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+div.pick div.player-name {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    padding: 0 10px;
+}
+
+div.pick-team {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.pick-team img {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+div.pick.QB {
+    background: rgb(255, 255, 107);
+}
+
+div.pick.RB {
+    background-color: rgb(131, 162, 255);
+}
+
+div.pick.WR {
+    background: rgb(255, 100, 100);
+}
+
+div.pick.TE {
+    background: rgb(255, 188, 63);
+}
+
+div.pick.DEF {
+    background: rgb(35, 153, 35);
 }
 
 div.pick:nth-last-child(1) {
     border-right: 1px solid #3d3d3d;
+}
+
+div.pick-meta {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(146, 146, 146);
+}
+
+div.pick-info {
+    display: flex;
+    align-items: center;
+}
+
+div.logo img {
+    width: 100%;
+}
+
+div.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+div.controls button {
+    border: none;
+    padding: 20px;
+    width: 100%;
+    cursor: pointer;
+}
+
+div.controls button.start {
+    background-color: #5999ff;
+}
+
+div.controls button.pause {
+    background-color: #ffe375;
+}
+
+div.controls button.clear {
+    background-color: #ff5566;
 }

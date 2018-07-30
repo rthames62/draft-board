@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 import { DraftService } from '../draft.service';
@@ -8,7 +8,9 @@ import { DraftService } from '../draft.service';
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.css']
 })
-export class TimerComponent implements OnInit {
+export class TimerComponent implements OnInit, OnChanges {
+
+  @Input() pickMade;
 
   timer = {
     minutes: 5,
@@ -23,6 +25,14 @@ export class TimerComponent implements OnInit {
 
   ngOnInit() {
     
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    switch(changes.pickMade.currentValue) {
+      case 'start': this.startTimer(); break;
+      case 'nextPick': this.restartTimer(); break;
+      case 'stop': this.stopTimer(); break;
+    }
   }
 
   startTimer(){

@@ -1,7 +1,5 @@
 div.timer-wrapper {
     width: 100%;
-    height: 20vh;
-    background: black;
     color: rgb(119, 255, 137);
     display: flex;
     flex-direction: column;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 import { PlayersService } from '../players.service';
 import { TeamsService } from '../teams.service';
@@ -9,7 +9,7 @@ import { DraftService } from '../draft.service';
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnChanges {
 
   searchedPlayers: Array<any> = [];
   searchInput: String;
@@ -22,7 +22,8 @@ export class BoardComponent implements OnInit {
   currentPick;
   draftResults;
   playerSearchModal: String;
-  upcomingPicks = [];
+  upcomingPicks: Array<any>;
+  restartTimer;
 
   constructor(
     private playersService: PlayersService,
@@ -34,8 +35,13 @@ export class BoardComponent implements OnInit {
     this.teamsService.getTeams().subscribe(data => {
       this.leagueTeams = data.teams;
       this.draftResults = this.draftService.buildDraftResults(data.teams);
-      this.upcomingPicks = data.teams;
+
+      this.buildUpcomingPicks();
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    
   }
 
   searchPlayers(e) {
@@ -45,10 +51,17 @@ export class BoardComponent implements OnInit {
   }
 
   assignPick(team, player) {
+    let draftStatus = this.draftService.getDraftStatus();
+    this.updateUpcomingPicks();
+
     this.draftResults = this.draftService.assignPick(team, player);
     this.playerSearchModal = "";
     this.searchInput = "";
     this.searchedPlayers = [];
+    this.restartTimer = 'nextPick';
+    setTimeout(()=>{
+      this.restartTimer = '';
+    }, 500);
   }
 
   getPlayerSearchModal(str){
@@ -63,5 +76,34 @@ export class BoardComponent implements OnInit {
     if(e.target.className === 'player-search active'){
       this.playerSearchModal = '';
     }
+  }
+
+  startDraft(){
+    this.restartTimer = 'start'
+  }
+
+  pauseDraft(){
+    this.restartTimer = 'stop'
+  }
+
+  clearDraft(){
+    this.draftService.clearDraft();
+    this.draftResults = this.draftService.buildDraftResults(this.leagueTeams);
+  }
+
+  private updateUpcomingPicks():void {
+    let status = this.draftService.getDraftStatus();
+
+    console.log(status.overallPick, this.currentPick);
+
+    if(status.overallPick === this.currentPick.overallPick) {
+      this.upcomingPicks.shift();
+    }
+  }
+
+  private buildUpcomingPicks() {
+    let draftStatus = this.draftService.getDraftStatus();
+    
+    this.upcomingPicks = this.draftService.buildUpcomingPicks();
   }
 }

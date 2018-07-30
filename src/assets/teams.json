@@ -4,73 +4,73 @@
             "owner": "Ryan Thames",
             "team_name": "A Win Is Coming",
             "draft_position": 0,
-            "image_path": ""
+            "image_path": "assets/images/team-logos/awic.jpg"
         },
         {
             "owner": "Jeremy Stalford",
-            "team_name": "Team 2",
+            "team_name": "Jeremys Team",
             "draft_position": 0,
-            "image_path": ""
+            "image_path": "assets/images/team-logos/default.png"
         },
         {
             "owner": "Chad Cutting",
-            "team_name": "Team 3",
+            "team_name": "Chads Team",
             "draft_position": 0,
-            "image_path": ""
+            "image_path": "assets/images/team-logos/default.png"
         },
         {
             "owner": "Connor Myers",
-            "team_name": "Team 4",
+            "team_name": "Connors Team",
             "draft_position": 0,
-            "image_path": ""
+            "image_path": "assets/images/team-logos/default.png"
         },
         {
             "owner": "Patrick Tabler",
-            "team_name": "Team 5",
+            "team_name": "Patricks Team",
             "draft_position": 0,
-            "image_path": ""
+            "image_path": "assets/images/team-logos/default.png"
         },
         {
             "owner": "Lucas Benavides",
-            "team_name": "Team 6",
+            "team_name": "Lucas Team",
             "draft_position": 0,
-            "image_path": ""
+            "image_path": "assets/images/team-logos/default.png"
         },
         {
             "owner": "Terin Guerra",
-            "team_name": "Team 7",
+            "team_name": "Terins Team",
             "draft_position": 0,
-            "image_path": ""
+            "image_path": "assets/images/team-logos/default.png"
         },
         {
             "owner": "Tim Bobbitt",
-            "team_name": "Team 8",
+            "team_name": "Tims Team",
             "draft_position": 0,
-            "image_path": ""
+            "image_path": "assets/images/team-logos/default.png"
         },
         {
             "owner": "Carter Willis",
-            "team_name": "Team 9",
+            "team_name": "Carters Team",
             "draft_position": 0,
-            "image_path": ""
+            "image_path": "assets/images/team-logos/default.png"
         },
         {
             "owner": "Austin High",
-            "team_name": "Team 10",
+            "team_name": "Austins Team",
             "draft_position": 0,
-            "image_path": ""
+            "image_path": "assets/images/team-logos/default.png"
         },
         {
             "owner": "Matt Towson",
-            "team_name": "Team 11",
+            "team_name": "Matts Team",
             "draft_position": 0,
-            "image_path": ""
+            "image_path": "assets/images/team-logos/default.png"
         },
         {
             "owner": "Will Gibson",
-            "team_name": "Team 12",
+            "team_name": "Wills Team",
             "draft_position": 0,
-            "image_path": ""
+            "image_path": "assets/images/team-logos/default.png"
         }
     ]
 }
