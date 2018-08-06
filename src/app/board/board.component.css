@@ -59,7 +59,7 @@ div.team-drafting:nth-child(3) {
 div.team-drafting img {
     border-radius: 50%;
     border: 3px solid white;
-    width: 120px;
+    max-width: 120px;
     margin-bottom: 10px;
     display: none;
 }
@@ -72,6 +72,7 @@ div.teams-row {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    height: 8.5vh;
 }
 
 .corner {
@@ -91,6 +92,8 @@ div.team {
     flex: 1 1 auto;
     font-size: 20px;
     font-weight: 600;
+    overflow: hidden;
+    height: 100%;
 }
 
 div.team:nth-last-child(1) {
@@ -98,7 +101,7 @@ div.team:nth-last-child(1) {
 }
 
 div.team img {
-    width: 50px;
+    max-width: 60px;
     border-radius: 50%;
     margin-bottom: 5px;
     border: 1px solid black;
@@ -158,6 +161,7 @@ div.search-wrapper {
     flex-direction: column;
     padding: 20px;
     overflow: auto;
+    position: relative;
 }
 
 div.search-wrapper input {
@@ -191,7 +195,7 @@ div.pick {
     justify-content: center;
     align-items: center;
     position: relative;
-    overflow: hidden;
+    
 }
 
 div.pick div.player-name {
@@ -281,4 +285,11 @@ div.controls button.pause {
 
 div.controls button.clear {
     background-color: #ff5566;
+}
+
+div.delete-pick {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
 }

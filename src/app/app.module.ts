@@ -10,13 +10,15 @@ import { TeamsService} from './teams.service';
 import { DraftService } from './draft.service';
 import { PickSelectorComponent } from './pick-selector/pick-selector.component';
 import { TimerComponent } from './timer/timer.component';
+import { CountdownComponent } from './countdown/countdown.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
     PickSelectorComponent,
-    TimerComponent
+    TimerComponent,
+    CountdownComponent
   ],
   imports: [
     BrowserModule, HttpModule, FormsModule

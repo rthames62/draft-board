@@ -1,8 +1,10 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 
 import { PlayersService } from '../players.service';
 import { TeamsService } from '../teams.service';
 import { DraftService } from '../draft.service';
+
+import { CountdownComponent } from '../countdown/countdown.component';
 
 @Component({
   selector: 'app-board',
@@ -24,6 +26,11 @@ export class BoardComponent implements OnInit, OnChanges {
   playerSearchModal: String;
   upcomingPicks: Array<any>;
   restartTimer;
+  countdownActive: boolean = false;
+  showRemovePlayer: boolean = false;
+  
+  @ViewChild(CountdownComponent)
+  countdownComponent: CountdownComponent;
 
   constructor(
     private playersService: PlayersService,
@@ -33,15 +40,15 @@ export class BoardComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.teamsService.getTeams().subscribe(data => {
-      this.leagueTeams = data.teams;
-      this.draftResults = this.draftService.buildDraftResults(data.teams);
+      this.leagueTeams = data;
+      this.draftResults = this.draftService.buildDraftResults(data);
 
       this.buildUpcomingPicks();
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    
+    console.log(changes, 'xxxxx');
   }
 
   searchPlayers(e) {
@@ -68,8 +75,12 @@ export class BoardComponent implements OnInit, OnChanges {
     this.playerSearchModal = str;
   }
 
-  showPlayerSearch(){
+  showPlayerSearch(pick){
+    if(pick.pick.displayName) {
+      this.showRemovePlayer = true;
+    }
     this.playerSearchModal = 'active';
+    this.currentPick = pick;
   }
 
   closePlayerSearch(e){
@@ -78,8 +89,18 @@ export class BoardComponent implements OnInit, OnChanges {
     }
   }
 
-  startDraft(){
-    this.restartTimer = 'start'
+  startCountdown(){
+    if(this.draftResults[0][0].pick.displayName) {
+      this.restartTimer = 'start';
+    } else {
+      this.countdownActive = true;
+    }
+  }
+
+  startDraft(e){
+
+    this.restartTimer = 'start';
+    this.countdownActive = false;
   }
 
   pauseDraft(){
@@ -87,8 +108,16 @@ export class BoardComponent implements OnInit, OnChanges {
   }
 
   clearDraft(){
-    this.draftService.clearDraft();
-    this.draftResults = this.draftService.buildDraftResults(this.leagueTeams);
+    if(window.confirm('Are you sure you want to clear the draft?')){
+      this.draftService.clearDraft();
+      this.draftResults = this.draftService.buildDraftResults(this.leagueTeams);
+    }
+  }
+
+  removeSelectedPick(pick){
+    pick.pick = {};
+    this.showRemovePlayer = false;
+    this.draftService.removeSelectedPlayer(pick.overallPick, pick.round);
   }
 
   private updateUpcomingPicks():void {

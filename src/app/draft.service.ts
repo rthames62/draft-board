@@ -179,4 +179,16 @@ export class DraftService {
 
     return upcoming;
   }
+
+  removeSelectedPlayer(overallPick, round){
+    for(let i = 0; i < this.draftResults[round - 1].length; i++) {
+      if(this.draftResults[round - 1][i].overallPick === overallPick) {
+        this.draftResults[round - 1][i].pick = {};
+      }
+    }
+
+    console.log(this.draftResults);
+
+    window.localStorage.setItem('draftResults', JSON.stringify(this.draftResults));
+  }
 }

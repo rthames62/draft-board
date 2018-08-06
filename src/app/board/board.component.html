@@ -11,7 +11,7 @@
       Round {{ i + 1 }}
     </div>
 
-    <div class="pick" *ngFor="let pick of round" (click)="currentPick = pick; showPlayerSearch();" [ngClass]="pick.pick.position">
+    <div class="pick" *ngFor="let pick of round" (click)="showPlayerSearch(pick);" [ngClass]="pick.pick.position">
         <div class="pick-meta" *ngIf="!pick.pick.displayName">
           <span>{{ pick.overallPick }}</span>
           <span>({{ pick.round }}.{{ pick.pickNumber }})</span>
@@ -46,7 +46,7 @@
       </div>
   </div>
   <div class="controls">
-      <button class="start" (click)="startDraft()">Start Draft</button>
+      <button class="start" (click)="startCountdown()">Start Draft</button>
       <button class="pause" (click)="pauseDraft()">Pause Draft</button>
       <button class="clear" (click)="clearDraft()">Clear Draft</button>
   </div>
@@ -61,6 +61,9 @@
             <span class="assign-player" (click)="assignPick(currentPick, player)">{{ player.displayName }} - {{ player.position }} - {{ player.team }}</span>
           </li>
         </ul>
+        <div class="delete-pick" *ngIf="showRemovePlayer" (click)="removeSelectedPick(currentPick)">Remove pick</div>
     </div>
 </div>
+
+<app-countdown *ngIf="countdownActive" (countdownFinished)="startDraft($event)" ></app-countdown>
 
