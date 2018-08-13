@@ -16,6 +16,8 @@ export class DraftService {
   currentRound = localStorage.getItem('currentRound') ? parseInt(localStorage.getItem('currentRound')) : 1;
   overallPick = localStorage.getItem('overallPick') ? parseInt(localStorage.getItem('overallPick')) : 1;
   teamLogoUrl = '/assets/images/';
+  leagueTeams;
+  leagueRounds: number;
 
   currentPositionPickRank = {
     qb: 1,
@@ -28,7 +30,7 @@ export class DraftService {
   private advanceDraft(){
     this.overallPick += 1;
 
-    if((this.currentPick % 12) === 0 && this.overallPick > 12) {
+    if((this.currentPick % this.leagueTeams) === 0 && this.overallPick > this.leagueTeams) {
       this.currentPick = 1;
       this.currentRound += 1;
     } else {
@@ -54,6 +56,8 @@ export class DraftService {
       var thisPick = this.draftResults[currentPick.round - 1][(this.draftResults[0].length - currentPick.pickNumber)]
     }
 
+    thisPick.pick.firstName = player.fname;
+    thisPick.pick.lastName = player.lname;
     thisPick.pick.displayName = player.displayName;
     thisPick.pick.position = player.position;
     thisPick.pick.team = player.team;
@@ -91,9 +95,12 @@ export class DraftService {
     return this.draftResults;
   }
 
-  buildDraftResults(teams){
+  buildDraftResults(teams, rounds){
     this.draftResults = [];
+    this.leagueTeams = teams;
+    this.leagueRounds = rounds;
     let storedResults = JSON.parse(window.localStorage.getItem('draftResults'));
+
     if(storedResults) {
       this.draftResults = storedResults;
       this.currentPick = parseInt(localStorage.getItem('currentPick'));
@@ -102,7 +109,7 @@ export class DraftService {
     } else {
       let overallPick = 1;
       let currentRound = 1;
-      for(let i = 0; i < 16; i++){
+      for(let i = 0; i < rounds; i++){
         let currentPick = 1;
         this.draftResults.push([]);
         
@@ -141,13 +148,11 @@ export class DraftService {
         currentRound += 1;
       }
 
-      console.log(this.draftResults);
       return this.draftResults;
     }
   }
 
   getDraftStatus() {
-    console.log(this.currentPick, this.currentRound, this.overallPick);
     return {
       pick: this.currentPick,
       round: this.currentRound,
@@ -162,7 +167,6 @@ export class DraftService {
   buildUpcomingPicks(){
     let upcoming = [];
     let results = JSON.parse(JSON.stringify(this.draftResults));
-    let firstIteration = true;
 
     for(let i = 0; i < results.length; i++) {
       if(i % 2 !== 0) {
@@ -170,11 +174,12 @@ export class DraftService {
       }
     }
 
-    for(let i = this.currentRound - 1; i < 16; i++) {
-      for(let j = firstIteration ? this.currentPick - 1 : 0; j < 12; j++) {
-        upcoming.push(results[i][j]);
+    for(let i = this.currentRound - 1; i < this.leagueRounds; i++) {
+      for(let j = 0; j < this.leagueTeams.length; j++) {
+        if(!results[i][j].pick.displayName){
+          upcoming.push(results[i][j]);
+        }
       }
-      firstIteration = false;
     }
 
     return upcoming;
@@ -186,8 +191,6 @@ export class DraftService {
         this.draftResults[round - 1][i].pick = {};
       }
     }
-
-    console.log(this.draftResults);
 
     window.localStorage.setItem('draftResults', JSON.stringify(this.draftResults));
   }

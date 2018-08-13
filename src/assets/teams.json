@@ -72,5 +72,6 @@
             "draft_position": 8,
             "image_path": "assets/images/team-logos/default.png"
         }
-    ]
+    ],
+    "rounds": 16
 }

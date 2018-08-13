@@ -13,14 +13,17 @@ export class TeamsService {
   constructor(private http: Http) { }
 
   getTeams(){
-    return this.http.get(this._teamsUrl).pipe(map(response => { 
+    return this.http.get(this._teamsUrl).pipe(map(response => {
       let teams = response.json().teams;
 
       teams.sort((a, b) => {
         return a.draft_position - b.draft_position;
       });
 
-      return teams;
+      return {
+        teams: teams,
+        rounds: response.json().rounds
+      }
      }));
   }
 }

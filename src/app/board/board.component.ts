@@ -16,6 +16,8 @@ export class BoardComponent implements OnInit, OnChanges {
   searchedPlayers: Array<any> = [];
   searchInput: String;
   leagueTeams: Array<any>;
+  leageRounds: number;
+  leagueRowHeights;
   selectedPlayer = {
     displayName: ''
   };
@@ -28,6 +30,8 @@ export class BoardComponent implements OnInit, OnChanges {
   restartTimer;
   countdownActive: boolean = false;
   showRemovePlayer: boolean = false;
+  draftActive: boolean = false;
+  draftStarted: boolean = false;
   
   @ViewChild(CountdownComponent)
   countdownComponent: CountdownComponent;
@@ -40,8 +44,14 @@ export class BoardComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.teamsService.getTeams().subscribe(data => {
-      this.leagueTeams = data;
-      this.draftResults = this.draftService.buildDraftResults(data);
+      this.leagueTeams = data.teams;
+      this.leageRounds = data.rounds;
+      this.leagueRowHeights = `rounds${data.rounds}`;
+      this.draftResults = this.draftService.buildDraftResults(data.teams, data.rounds);
+
+      if(this.draftResults[0][0].pick.displayName) {
+        this.draftStarted = true;
+      }
 
       this.buildUpcomingPicks();
     });
@@ -52,9 +62,14 @@ export class BoardComponent implements OnInit, OnChanges {
   }
 
   searchPlayers(e) {
-    this.playersService.searchPlayers(this.searchInput).subscribe(data => {
-      this.searchedPlayers = data;
-    });
+    if(this.searchInput.length > 2) {
+      this.playersService.searchPlayers(this.searchInput).subscribe(data => {
+        this.searchedPlayers = data;
+      });
+    } else {
+      this.searchedPlayers = [];
+    }
+    
   }
 
   assignPick(team, player) {
@@ -81,6 +96,10 @@ export class BoardComponent implements OnInit, OnChanges {
     }
     this.playerSearchModal = 'active';
     this.currentPick = pick;
+    setTimeout(() => {
+      document.getElementById('player-search').focus();
+    }, 100);
+    
   }
 
   closePlayerSearch(e){
@@ -90,6 +109,7 @@ export class BoardComponent implements OnInit, OnChanges {
   }
 
   startCountdown(){
+    this.draftActive = true;
     if(this.draftResults[0][0].pick.displayName) {
       this.restartTimer = 'start';
     } else {
@@ -98,20 +118,23 @@ export class BoardComponent implements OnInit, OnChanges {
   }
 
   startDraft(e){
-
     this.restartTimer = 'start';
     this.countdownActive = false;
+    this.draftStarted = true;
   }
 
   pauseDraft(){
     this.restartTimer = 'stop'
+    this.draftActive = false;
   }
 
   clearDraft(){
     if(window.confirm('Are you sure you want to clear the draft?')){
       this.draftService.clearDraft();
-      this.draftResults = this.draftService.buildDraftResults(this.leagueTeams);
+      this.draftResults = this.draftService.buildDraftResults(this.leagueTeams, this.leageRounds);
     }
+    this.draftActive = false;
+    this.draftStarted = true;
   }
 
   removeSelectedPick(pick){
