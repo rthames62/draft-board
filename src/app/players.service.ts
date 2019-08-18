@@ -12,11 +12,11 @@ export class PlayersService {
 
   searchPlayers(str) {
     return this.http.get(this._playersUrl).pipe(map(response => {
-      const list = response.json().Players;
+      const list = response.json();
       let matched = [];
 
       for(var i = 0; i < list.length; i++){
-        if(list[i].displayName.toLowerCase().indexOf(str.toLowerCase()) >= 0) {
+        if(list[i].Name.toLowerCase().indexOf(str.toLowerCase()) >= 0) {
           matched.push(list[i]);
         }
       }

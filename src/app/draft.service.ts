@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 
 import { map } from 'rxjs/operators';
 
-import { TeamsService } from './teams.service'; 
+import { TeamsService } from './teams.service';
 import { Pick } from './pick';
 
 @Injectable({
@@ -40,13 +40,18 @@ export class DraftService {
     localStorage.setItem('currentPick', this.currentPick.toString());
     localStorage.setItem('currentRound', this.currentRound.toString());
     localStorage.setItem('overallPick', this.overallPick.toString());
+    localStorage.setItem('currentPositionPickRank', JSON.stringify(this.currentPositionPickRank));
   }
 
   constructor(
     private http: Http,
     private teamsService: TeamsService
   ) {
-    
+    const positionPickRank = localStorage.getItem('currentPositionPickRank');
+
+    if(positionPickRank) {
+      this.currentPositionPickRank = JSON.parse(positionPickRank);
+    }
   }
 
   assignPick(currentPick, player) {
@@ -56,41 +61,20 @@ export class DraftService {
       var thisPick = this.draftResults[currentPick.round - 1][(this.draftResults[0].length - currentPick.pickNumber)]
     }
 
-    thisPick.pick.firstName = player.fname;
-    thisPick.pick.lastName = player.lname;
-    thisPick.pick.displayName = player.displayName;
-    thisPick.pick.position = player.position;
-    thisPick.pick.team = player.team;
-    thisPick.pick.teamLogo = this.teamLogoUrl + `${player.team.toLowerCase()}.png`;
-    
-    switch(player.position) {
-      case 'QB':
-        thisPick.pick.positionPickRank = this.currentPositionPickRank.qb;
-        this.currentPositionPickRank.qb += 1;
-        break;
-      case "RB":
-        thisPick.pick.positionPickRank = this.currentPositionPickRank.rb;
-        this.currentPositionPickRank.rb += 1;
-        break;
-      case "WR":
-        thisPick.pick.positionPickRank = this.currentPositionPickRank.wr;
-        this.currentPositionPickRank.wr += 1;
-        break;
-      case "TE":
-        thisPick.pick.positionPickRank = this.currentPositionPickRank.te;
-        this.currentPositionPickRank.te += 1;
-        break;
-      case "DEF":
-        thisPick.pick.positionPickRank = this.currentPositionPickRank.def;
-        this.currentPositionPickRank.def += 1;
-        break;
-    }
+    thisPick.pick.name = player.Name;
+    thisPick.pick.position = player.Position;
+    thisPick.pick.team = player.Team;
+    thisPick.pick.teamLogo = this.teamLogoUrl + `${player.Team.toLowerCase()}.png`;
+
+    this.renderCurrentPositionPickRanks();
 
     if(currentPick.overallPick === this.overallPick){
       this.advanceDraft();
     }
 
     window.localStorage.setItem('draftResults', JSON.stringify(this.draftResults));
+
+    console.log(this.draftResults);
 
     return this.draftResults;
   }
@@ -112,10 +96,10 @@ export class DraftService {
       for(let i = 0; i < rounds; i++){
         let currentPick = 1;
         this.draftResults.push([]);
-        
+
         if(i % 2 === 0) {
           for(let j = 0; j < teams.length; j++){
-          
+
             let pick = {
               pickNumber: currentPick,
               overallPick,
@@ -157,7 +141,7 @@ export class DraftService {
       pick: this.currentPick,
       round: this.currentRound,
       overallPick: this.overallPick
-    }
+    };
   }
 
   clearDraft() {
@@ -176,7 +160,7 @@ export class DraftService {
 
     for(let i = this.currentRound - 1; i < this.leagueRounds; i++) {
       for(let j = 0; j < this.leagueTeams.length; j++) {
-        if(!results[i][j].pick.displayName){
+        if(!results[i][j].pick.name){
           upcoming.push(results[i][j]);
         }
       }
@@ -191,7 +175,46 @@ export class DraftService {
         this.draftResults[round - 1][i].pick = {};
       }
     }
+    this.renderCurrentPositionPickRanks();
 
     window.localStorage.setItem('draftResults', JSON.stringify(this.draftResults));
+  }
+
+  private renderCurrentPositionPickRanks() {
+    this.currentPositionPickRank = {
+      qb: 1,
+      rb: 1,
+      wr: 1,
+      te: 1,
+      def: 1
+    };
+    this.draftResults.forEach(x => {
+      x.forEach(y => {
+        if(y.pick.name) {
+          switch(y.pick.position) {
+            case 'QB':
+              y.pick.positionPickRank = this.currentPositionPickRank.qb;
+              this.currentPositionPickRank.qb += 1;
+              break;
+            case 'RB':
+              y.pick.positionPickRank = this.currentPositionPickRank.rb;
+              this.currentPositionPickRank.rb += 1;
+              break;
+            case 'WR':
+              y.pick.positionPickRank = this.currentPositionPickRank.wr;
+              this.currentPositionPickRank.wr += 1;
+              break;
+            case 'TE':
+              y.pick.positionPickRank = this.currentPositionPickRank.te;
+              this.currentPositionPickRank.te += 1;
+              break;
+            case 'DEF':
+              y.pick.positionPickRank = this.currentPositionPickRank.def;
+              this.currentPositionPickRank.def += 1;
+              break;
+          }
+        };
+      });
+    });
   }
 }

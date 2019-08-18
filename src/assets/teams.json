@@ -3,74 +3,74 @@
         {
             "owner": "Ryan Thames",
             "team_name": "A Win Is Coming",
-            "draft_position": 1,
+            "draft_position": 4,
             "image_path": "assets/images/team-logos/awic.jpg"
         },
         {
             "owner": "Jeremy Stalford",
-            "team_name": "Jeremys Team",
-            "draft_position": 11,
-            "image_path": "assets/images/team-logos/default.png"
+            "team_name": "Limp Chicken Fingers",
+            "draft_position": 10,
+            "image_path": "assets/images/team-logos/lcf.jpg"
         },
         {
             "owner": "Chad Cutting",
-            "team_name": "Chads Team",
-            "draft_position": 10,
-            "image_path": "assets/images/team-logos/default.png"
+            "team_name": "Undrafted Wookies",
+            "draft_position": 12,
+            "image_path": "assets/images/team-logos/uw.jpg"
         },
         {
             "owner": "Connor Myers",
-            "team_name": "Connors Team",
-            "draft_position": 9,
-            "image_path": "assets/images/team-logos/default.png"
+            "team_name": "Deathly Hallows",
+            "draft_position": 8,
+            "image_path": "assets/images/team-logos/dh.jpg"
         },
         {
             "owner": "Patrick Tabler",
-            "team_name": "Patricks Team",
-            "draft_position": 12,
-            "image_path": "assets/images/team-logos/default.png"
+            "team_name": "Pat's Pats",
+            "draft_position": 5,
+            "image_path": "assets/images/team-logos/pp.jpg"
         },
         {
-            "owner": "Lucas Benavides",
-            "team_name": "Lucas Team",
-            "draft_position": 7,
+            "owner": "Nathan Trotter",
+            "team_name": "Nathan's Team",
+            "draft_position": 6,
             "image_path": "assets/images/team-logos/default.png"
         },
         {
             "owner": "Terin Guerra",
             "team_name": "Don't get Clowney'd",
-            "draft_position": 6,
+            "draft_position": 7,
             "image_path": "assets/images/team-logos/dgc.jpg"
         },
         {
             "owner": "Tim Bobbitt",
-            "team_name": "Tims Team",
-            "draft_position": 5,
-            "image_path": "assets/images/team-logos/default.png"
+            "team_name": "Death Cab for Flutie",
+            "draft_position": 2,
+            "image_path": "assets/images/team-logos/dcff.jpg"
         },
         {
             "owner": "Carter Willis",
-            "team_name": "Carters Team",
-            "draft_position": 4,
-            "image_path": "assets/images/team-logos/default.png"
+            "team_name": "Snap Count",
+            "draft_position": 9,
+            "image_path": "assets/images/team-logos/sc.jpg"
         },
         {
             "owner": "Austin High",
             "team_name": "The Real Bernard",
-            "draft_position": 3,
+            "draft_position": 1,
             "image_path": "assets/images/team-logos/trb.jpg"
         },
         {
-            "owner": "Matt Towson",
-            "team_name": "Matts Team",
-            "draft_position": 2,
+            "owner": "Daniel Scott",
+            "team_name": "Voldemort's Taint",
+            "draft_position": 11,
             "image_path": "assets/images/team-logos/default.png"
         },
         {
             "owner": "Will Gibson",
-            "team_name": "Wills Team",
-            "draft_position": 8,
-            "image_path": "assets/images/team-logos/default.png"
+            "team_name": "Teenage Jay Cutler",
+            "draft_position": 3,
+            "image_path": "assets/images/team-logos/tjc.jpg"
         }
     ],
     "rounds": 16

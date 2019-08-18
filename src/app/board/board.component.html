@@ -12,14 +12,13 @@
     </div>
 
     <div class="pick" *ngFor="let pick of round" (click)="showPlayerSearch(pick);" [ngClass]="pick.pick.position">
-        <div class="pick-meta" *ngIf="!pick.pick.displayName">
+        <div class="pick-meta" *ngIf="!pick.pick.name">
           <span>{{ pick.overallPick }}</span>
           <span>({{ pick.round }}.{{ pick.pickNumber }})</span>
         </div>
-        <div class="pick-info" *ngIf="pick.pick.displayName">
+        <div class="pick-info" *ngIf="pick.pick.name">
             <div class="player-name">
-                <p>{{ pick.pick.firstName }}</p>
-                <p>{{ pick.pick.lastName }}</p>
+                <p>{{ pick.pick.name }}</p>
             </div>
             <div class="pick-team">
                 <img class="team" [src]="pick.pick.teamLogo" *ngIf="pick.pick.teamLogo" />
@@ -64,7 +63,7 @@
 
         <ul class="player-list">
           <li *ngFor="let player of searchedPlayers">
-            <span class="assign-player" (click)="assignPick(currentPick, player)">{{ player.displayName }} - {{ player.position }} - {{ player.team }}</span>
+            <span class="assign-player" (click)="assignPick(currentPick, player)">{{ player.Name }} - {{ player.Position }} - {{ player.Team }}</span>
           </li>
         </ul>
         <div class="delete-pick" *ngIf="showRemovePlayer" (click)="removeSelectedPick(currentPick)">Remove pick</div>

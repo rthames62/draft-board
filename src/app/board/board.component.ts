@@ -32,7 +32,7 @@ export class BoardComponent implements OnInit, OnChanges {
   showRemovePlayer: boolean = false;
   draftActive: boolean = false;
   draftStarted: boolean = false;
-  
+
   @ViewChild(CountdownComponent)
   countdownComponent: CountdownComponent;
 
@@ -49,7 +49,7 @@ export class BoardComponent implements OnInit, OnChanges {
       this.leagueRowHeights = `rounds${data.rounds}`;
       this.draftResults = this.draftService.buildDraftResults(data.teams, data.rounds);
 
-      if(this.draftResults[0][0].pick.displayName) {
+      if(this.draftResults[0][0].pick.name) {
         this.draftStarted = true;
       }
 
@@ -65,11 +65,12 @@ export class BoardComponent implements OnInit, OnChanges {
     if(this.searchInput.length > 2) {
       this.playersService.searchPlayers(this.searchInput).subscribe(data => {
         this.searchedPlayers = data;
+        console.log()
       });
     } else {
       this.searchedPlayers = [];
     }
-    
+
   }
 
   assignPick(team, player) {
@@ -91,7 +92,7 @@ export class BoardComponent implements OnInit, OnChanges {
   }
 
   showPlayerSearch(pick){
-    if(pick.pick.displayName) {
+    if(pick.pick.name) {
       this.showRemovePlayer = true;
     }
     this.playerSearchModal = 'active';
@@ -99,7 +100,7 @@ export class BoardComponent implements OnInit, OnChanges {
     setTimeout(() => {
       document.getElementById('player-search').focus();
     }, 100);
-    
+
   }
 
   closePlayerSearch(e){
@@ -110,7 +111,7 @@ export class BoardComponent implements OnInit, OnChanges {
 
   startCountdown(){
     this.draftActive = true;
-    if(this.draftResults[0][0].pick.displayName) {
+    if(this.draftResults[0][0].pick.name) {
       this.restartTimer = 'start';
     } else {
       this.countdownActive = true;
@@ -155,7 +156,7 @@ export class BoardComponent implements OnInit, OnChanges {
 
   private buildUpcomingPicks() {
     let draftStatus = this.draftService.getDraftStatus();
-    
+
     this.upcomingPicks = this.draftService.buildUpcomingPicks();
   }
 }
